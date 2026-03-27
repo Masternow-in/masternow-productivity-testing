@@ -1,6 +1,7 @@
 import express from 'express';
 import { prisma } from '../db.js';
 import { requireAuth } from '../middleware/authMiddleware.js';
+import { recordLocalActivity } from './streak.js';
 
 const router = express.Router();
 
@@ -56,6 +57,11 @@ router.patch('/lecture/:id/complete', async (req, res) => {
             where: { id },
             data: { isCompleted }
         });
+
+        // Record local user activity for streak calculation
+        if (isCompleted) {
+            await recordLocalActivity(req.user.id);
+        }
 
         res.json(updatedLecture);
     } catch (error) {

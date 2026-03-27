@@ -120,13 +120,18 @@ router.get('/', requireAuth, async (req, res) => {
             ghEvents = await getGitHubData(user.githubHandle);
         }
 
-        isActiveToday = hasActivityToday(lcCalendar, ghEvents);
-
         // Calculate Streak logic
         let newStreak = user.currentStreak || 0;
         let lastActive = user.lastActiveDate;
         const todayStr = new Date().toISOString().split('T')[0];
         const lastActiveStr = lastActive ? new Date(lastActive).toISOString().split('T')[0] : null;
+
+        isActiveToday = hasActivityToday(lcCalendar, ghEvents);
+
+        // Include local platform activity
+        if (lastActiveStr === todayStr) {
+            isActiveToday = true;
+        }
 
         if (isActiveToday) {
             if (lastActiveStr !== todayStr) {
@@ -212,3 +217,39 @@ router.post('/handles', requireAuth, async (req, res) => {
 });
 
 export default router;
+
+// Exportable helper for local activity tracking
+export const recordLocalActivity = async (userId) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) return;
+
+        let lastActive = user.lastActiveDate;
+        let newStreak = user.currentStreak || 0;
+        
+        const todayStr = new Date().toISOString().split('T')[0];
+        const lastActiveStr = lastActive ? new Date(lastActive).toISOString().split('T')[0] : null;
+
+        if (lastActiveStr !== todayStr) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+            if (lastActiveStr === yesterdayStr) {
+                newStreak += 1;
+            } else {
+                newStreak = 1;
+            }
+
+            await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    currentStreak: newStreak,
+                    lastActiveDate: new Date()
+                }
+            });
+        }
+    } catch (e) {
+        console.error("Error recording local activity:", e);
+    }
+};
