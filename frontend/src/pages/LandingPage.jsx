@@ -20,6 +20,15 @@ const LandingPage = () => {
         link.click();
         document.body.removeChild(link);
     };
+    const handleDownloadWindows = () => {
+        const downloadUrl = 'https://pub-7e82d0250577412ea13c7b60d2c3bb04.r2.dev/Masternow%20Setup%201.0.0.exe';
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'Masternow-macOS.dmg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <div className="min-h-screen transition-colors duration-200" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
@@ -100,7 +109,7 @@ const LandingPage = () => {
                                 {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
                             </button>
 
-                            <button onClick={handleDownload} className=" bg-blue-500 hover:bg-blue-600 text-white group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor2: 'var(--primary-btn)', color2: 'var(--primary-btn-text) ' }}>
+                            <button onClick={handleDownloadWindows} className=" bg-blue-500 hover:bg-blue-600 text-white group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor2: 'var(--primary-btn)', color2: 'var(--primary-btn-text) ' }}>
                                 Download .exe
                                 <img src="https://cdn-icons-png.flaticon.com/512/888/888882.png" className="w-5 h-5" alt="mac" />
                                 {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
