@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --bg-color: #fcfcfc;
-  --component-bg: #ffffff;
-  --text-color: #000000;
-  --sidebar-bg: #ffffff;
-  --border-color: #eaeaea;
-  --hover-bg: #f5f5f5;
-  --primary-btn: #000000;
-  --primary-btn-text: #ffffff;
+  --bg-color: #000000;
+  --component-bg: #0a0a0a;
+  --text-color: #ffffff;
+  --sidebar-bg: #050505;
+  --border-color: #222222;
+  --hover-bg: #111111;
+  --primary-btn: #ffffff;
+  --primary-btn-text: #000000;
 }
 
 [data-theme='dark'] {

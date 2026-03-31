@@ -253,8 +253,13 @@ const AddCourse = () => {
                                     type="date"
                                     value={startDate}
                                     onChange={e => setStartDate(e.target.value)}
-                                    className="w-full p-2.5 rounded-sm bg-transparent border outline-none focus:ring-1 ring-black dark:ring-white text-sm"
-                                    style={{ borderColor: 'var(--border-color)' }}
+                                    className="w-full p-2.5 rounded-sm bg-transparent border outline-none focus:ring-1 ring-black dark:ring-white text-sm cursor-pointer"
+                                    style={{ 
+                                        borderColor: 'var(--border-color)',
+                                        color: '#ffffff',
+                                        accentColor: '#ffffff',
+                                        colorScheme: 'dark'
+                                    }}
                                     required
                                 />
                             </div>
@@ -264,7 +269,7 @@ const AddCourse = () => {
                     {/* Calculate Button */}
                     <div className="pt-4 flex justify-end">
                         <button disabled={isLoading} type="submit" className="flex items-center gap-2 bg-black text-white dark:bg-white dark:text-black px-8 py-3 rounded-sm font-semibold text-sm hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100">
-                            {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Calculator size={18} />}
+                            {isLoading ? <Loader2 size={18} className="animate-spin" /> :""}
                             {isLoading ? 'Calculating...' : 'Calculate Schedule'}
                         </button>
                     </div>
